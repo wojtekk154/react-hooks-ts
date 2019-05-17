@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import storeConfiguration from "./store/store";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import NavigationBar from "./components/layout/Navbar";
+import Home from "./pages/home/Home";
+
+import "./App.css";
+import { Planets } from "./pages/planets";
+import { Films } from "./pages/films";
+
+
+const App: React.FC = (): React.ReactElement => {
+    return (
+        <Provider store={storeConfiguration}>
+            <Router>
+                <div className="App">
+                    <NavigationBar/>
+
+                    <div className="PageContainer">
+                        <Route exact path="/" component={Home} key="home"/>
+                        <Route path="/planets" component={Planets} key="planets"/>
+                        <Route path="/films" component={Films} key="films"/>
+                    </div>
+                </div>
+            </Router>
+        </Provider>
+    );
+};
 
 export default App;
